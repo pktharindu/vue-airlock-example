@@ -29,11 +29,7 @@
           v-if="successMessage"
           class="text-green-500 text-sm mb-4"
         >{{ successMessage }}</div>
-        <input
-          type="hidden"
-          name="token"
-          v-model="token"
-        />
+
         <div class="rounded-md shadow-sm">
           <div>
             <input
@@ -42,30 +38,8 @@
               name="email"
               type="email"
               required
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
               placeholder="Email address"
-            />
-          </div>
-          <div class="-mt-px">
-            <input
-              v-model="password"
-              aria-label="Password"
-              name="password"
-              type="password"
-              required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-              placeholder="Password"
-            />
-          </div>
-          <div class="-mt-px">
-            <input
-              v-model="password_confirmation"
-              aria-label="Password Confirmation"
-              name="password_confirmation"
-              type="password"
-              required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-              placeholder="Confirm Password"
             />
           </div>
         </div>
@@ -88,7 +62,7 @@
                 />
               </svg>
             </span>
-            Reset Password
+            Send Password Reset Link
           </button>
         </div>
       </form>
@@ -107,10 +81,7 @@ export default {
   name: "Home",
   data() {
     return {
-      token: this.$route.params.token,
-      email: this.$route.query.email,
-      password: "",
-      password_confirmation: "",
+      email: "",
       errorMessage: "",
       successMessage: ""
     };
@@ -120,17 +91,12 @@ export default {
       axios.get("/airlock/csrf-cookie").then(response => {
         // console.log(response)
         axios
-          .post("/password/reset", {
-            token: this.token,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.password_confirmation
+          .post("/password/email", {
+            email: this.email
           })
           .then(response2 => {
-            // console.log(response2);
+            // console.log(response2.data.message);
             this.successMessage = response2.data.message;
-            localStorage.setItem("isLoggedIn", "true");
-            this.$router.push({ name: "Dashboard" });
           })
           .catch(error => {
             // console.log(error.response.data);

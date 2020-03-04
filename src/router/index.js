@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Register from '../views/Register.vue'
 import PasswordReset from '../views/PasswordReset.vue'
+import PasswordResetRequest from '../views/PasswordResetRequest.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [{
   },
   {
     path: '/password/reset',
+    name: 'PasswordResetRequest',
+    component: PasswordResetRequest,
+  },
+  {
+    path: '/password/reset/:token',
     name: 'PasswordReset',
     component: PasswordReset,
   },

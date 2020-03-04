@@ -24,11 +24,7 @@
           v-if="errorMessage"
           class="text-red-500 text-sm mb-4"
         >{{ errorMessage }}</div>
-        <input
-          type="hidden"
-          name="remember"
-          value="true"
-        />
+
         <div class="rounded-md shadow-sm">
           <div>
             <input
