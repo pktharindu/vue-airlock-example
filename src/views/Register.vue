@@ -11,13 +11,7 @@
           Laravel Airlock
         </h2>
         <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
-          Or
-          <a
-            href="#"
-            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-          >
-            start your 14-day free trial
-          </a>
+          Register
         </p>
       </div>
       <form
@@ -38,12 +32,23 @@
         <div class="rounded-md shadow-sm">
           <div>
             <input
+              v-model="name"
+              aria-label="Name"
+              name="name"
+              type="text"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              placeholder="Name"
+            />
+          </div>
+          <div class="-mt-px">
+            <input
               v-model="email"
               aria-label="Email address"
               name="email"
               type="email"
               required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
               placeholder="Email address"
             />
           </div>
@@ -54,34 +59,20 @@
               name="password"
               type="password"
               required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
               placeholder="Password"
             />
           </div>
-        </div>
-
-        <div class="mt-6 flex items-center justify-between">
-          <div class="flex items-center">
+          <div class="-mt-px">
             <input
-              id="remember_me"
-              type="checkbox"
-              class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+              v-model="password_confirmation"
+              aria-label="Password Confirmation"
+              name="password_confirmation"
+              type="password"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              placeholder="Confirm Password"
             />
-            <label
-              for="remember_me"
-              class="ml-2 block text-sm leading-5 text-gray-900"
-            >
-              Remember me
-            </label>
-          </div>
-
-          <div class="text-sm leading-5">
-            <a
-              href="#"
-              class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-            >
-              Forgot your password?
-            </a>
           </div>
         </div>
 
@@ -103,7 +94,7 @@
                 />
               </svg>
             </span>
-            Sign in
+            Register
           </button>
         </div>
       </form>
@@ -122,8 +113,10 @@ export default {
   name: "Home",
   data() {
     return {
+      name: "",
       email: "",
       password: "",
+      password_confirmation: "",
       errorMessage: ""
     };
   },
@@ -132,9 +125,11 @@ export default {
       axios.get("/airlock/csrf-cookie").then(response => {
         // console.log(response)
         axios
-          .post("/login", {
+          .post("/register", {
+            name: this.name,
             email: this.email,
-            password: this.password
+            password: this.password,
+            password_confirmation: this.password_confirmation
           })
           .then(response2 => {
             // console.log(response2);

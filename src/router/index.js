@@ -3,15 +3,31 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Register from '../views/Register.vue'
+import PasswordReset from '../views/PasswordReset.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { requiresVisitor: true }
+    meta: {
+      requiresVisitor: true
+    }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: {
+      requiresVisitor: true
+    }
+  },
+  {
+    path: '/password/reset',
+    name: 'PasswordReset',
+    component: PasswordReset,
   },
   {
     path: '/about',
@@ -26,7 +42,9 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true }
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
