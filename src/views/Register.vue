@@ -103,7 +103,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://controlspace.test";
+axios.defaults.baseURL = "http://api.example.test";
 
 export default {
   name: "Home",
